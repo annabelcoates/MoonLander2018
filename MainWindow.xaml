@@ -1,0 +1,76 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:oxy="http://oxyplot.org/wpf"
+
+        mc:Ignorable="d"
+        KeyDown="KeyPressed"
+        Title="MainWindow" Height="469.5" Width="800" Background="{x:Null}">
+    <Grid>
+        <Ellipse HorizontalAlignment="Left" Height="23" Margin="291,353,0,0" VerticalAlignment="Top" Width="209" Fill="White"/>
+        <oxy:Plot x:Name="heightPlot" Title="{Binding Title}" Margin="26,10,507,162" FontFamily="Consolas" DefaultFont="consolas" Background="{x:Null}" Foreground="White" PlotAreaBorderColor="White" TextColor="White" Width="250" Height="250">
+            <oxy:Plot.Axes>
+                <oxy:LinearAxis Width="3"/>
+            </oxy:Plot.Axes>
+            <oxy:Plot.DataContext>
+                <local:GraphViewModel x:Name="heightVM" Title="Height"/>
+            </oxy:Plot.DataContext>
+            <oxy:LineSeries ItemsSource="{Binding Points}"/>
+        </oxy:Plot>
+        <oxy:Plot x:Name="velocityPlot" Title="{Binding Title}" Margin="510,10,23,162" FontFamily="Corbel" DefaultFont="consolas" Background="{x:Null}" Foreground="White" TextColor="White" TitleColor="White" PlotAreaBorderColor="White" Height="250" Width="250">
+            <oxy:Plot.Axes>
+                <oxy:LinearAxis Width="3" AxislineColor="White" ExtraGridlineColor="White"/>
+                <oxy:LinearAxis TitleColor="Transparent" Title="Time" Unit="s"/>
+            </oxy:Plot.Axes>
+            <oxy:Plot.DataContext>
+                <local:GraphViewModel x:Name="velocityVM" Title="Velocity"/>
+            </oxy:Plot.DataContext>
+            <oxy:LineSeries ItemsSource="{Binding Points}"/>
+        </oxy:Plot>
+        <Slider x:Name="thrustSlider" HorizontalAlignment="Left" Height="56" Margin="542,301,0,0" VerticalAlignment="Top" Width="215" Maximum="15" SmallChange="3" LargeChange="3" Value="5"/>
+        <Label Content="0" HorizontalAlignment="Left" Height="24" Margin="540,319,0,0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.615,0.042" FontFamily="Consolas" Foreground="White"/>
+        <Label Content="         max &#xA;acceleration" HorizontalAlignment="Right" Height="76" Margin="0,312,10,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.615,0.042" FontFamily="Consolas" Foreground="White"/>
+        <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="378" Margin="272,10,0,0" VerticalAlignment="Top" Width="242">
+            <Label Content="Moon Lander 2018" Canvas.Left="39" Canvas.Top="3" Width="187" FontFamily="Consolas" FontSize="20" FontStyle="Italic" Foreground="White"/>
+            <Rectangle x:Name="GUIlander" HorizontalAlignment="Left" Height="72" VerticalAlignment="Top" Width="82" Canvas.Left="85" Canvas.Top="36">
+                <Rectangle.OpacityMask>
+                    <ImageBrush ImageSource="lander.png"/>
+                </Rectangle.OpacityMask>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="lander.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Canvas>
+        <Label x:Name="resultLabel" Content="&#xA;" HorizontalAlignment="Left" Height="106" Margin="307,134,0,0" VerticalAlignment="Top" Width="179" FontFamily="Consolas" FontSize="20" Background="{x:Null}" Foreground="Black" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+        <Label Content="Press Enter to begin" FontFamily="Consolas" Margin="326,372,306,10" Background="{x:Null}" Foreground="White" FontWeight="Bold" FontStyle="Italic"/>
+        <Label Content="Time (s)" HorizontalAlignment="Left" Height="27" Margin="639,257,0,0" VerticalAlignment="Top" Width="60" FontFamily="Consolas" Foreground="White"/>
+        <Label Content="Velocity(m/s)" HorizontalAlignment="Left" Height="27" Margin="480,121,0,0" VerticalAlignment="Top" Width="96" FontFamily="Consolas" Foreground="White" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90.808"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label Content="Height(m)" HorizontalAlignment="Left" Height="27" Margin="-14,123,0,0" VerticalAlignment="Top" Width="67" FontFamily="Consolas" Foreground="White" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90.808"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label Content="Time (s)" HorizontalAlignment="Left" Height="27" Margin="639,257,0,0" VerticalAlignment="Top" Width="67" FontFamily="Consolas" Foreground="White"/>
+        <Label Content="Time (s)" HorizontalAlignment="Left" Height="27" Margin="140,251,0,0" VerticalAlignment="Top" Width="67" FontFamily="Consolas" Foreground="White"/>
+        <Label x:Name="warningLabel" Content="SAFE VElOCITY&#xA;" HorizontalAlignment="Left" Height="68" Margin="0,272,0,0" VerticalAlignment="Top" Width="321" FontFamily="Consolas" FontSize="36" Background="{x:Null}" Foreground="Black" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Content="Use arrow keys to control slider!" FontFamily="Consolas" Margin="537,362,10,20" Background="{x:Null}" Foreground="White"/>
+        <Label Content="The lander will break at landing&#xD;&#xA;speeds &gt; 15m/s" FontFamily="Consolas" Margin="21,362,525,20" Background="{x:Null}" Foreground="White"/>
+    </Grid>
+</Window>
